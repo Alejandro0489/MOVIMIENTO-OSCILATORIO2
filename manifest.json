@@ -1,0 +1,22 @@
+{
+  "name": "Cuaderno Interactivo de Física III: Movimiento Armónico Simple",
+  "short_name": "Física III MAS",
+  "description": "Códice interactivo de física clásica para el estudio del Movimiento Oscilatorio y Movimiento Armónico Simple con laboratorios y simulaciones GeoGebra.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#150f0a",
+  "theme_color": "#8f6727",
+  "icons": [
+    {
+      "src": "Imagenes/Portada-vintage.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "Imagenes/Portada.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+}

@@ -1,0 +1,365 @@
+/* ==========================================================================
+   SIMULADOR INTERACTIVO CLÁSICO: MASA-RESORTE, FASOR Y GRÁFICAS CINEMÁTICAS
+   Estilo: Taller Experimental Renacentista & Laboratorio de Pergamino
+   ========================================================================== */
+
+.sim-lab-wrapper {
+  background: rgba(255, 252, 245, 0.96);
+  border: 1.5px solid #d4c2a5;
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: 0 4px 18px rgba(55, 30, 15, 0.08);
+  margin: 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sim-stage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  min-height: 380px;
+}
+
+@media (max-width: 860px) {
+  .sim-stage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-box {
+  background: #fbf6ec;
+  border: 1px solid #d4c2a5;
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 2px 8px rgba(70, 40, 15, 0.04);
+}
+
+.sim-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  background: #f4eae0;
+  border-bottom: 1px solid #d4c2a5;
+  font-family: var(--font-antique-heading);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #3b2210;
+  letter-spacing: 0.04em;
+}
+
+.sim-box-body {
+  position: relative;
+  flex: 1;
+  min-height: 300px;
+}
+
+.sim-box-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Panel de Lecturas Físicas en Pergamino (Telemetry) */
+.sim-telemetry-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  background: #fbf5ea;
+  border: 1px solid #d8c7ad;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.telemetry-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(255, 252, 245, 0.95);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #dfd2be;
+  box-shadow: 0 1px 3px rgba(60, 30, 10, 0.04);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.telemetry-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(60, 30, 10, 0.08);
+}
+
+.telemetry-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #b88a38;
+}
+
+.telemetry-item:nth-child(1)::before { background: #6b4c34; }
+.telemetry-item:nth-child(2)::before { background: #1b4965; }
+.telemetry-item:nth-child(3)::before { background: #2d5a3f; }
+.telemetry-item:nth-child(4)::before { background: #8c251e; }
+.telemetry-item:nth-child(5)::before { background: #8a652a; }
+.telemetry-item:nth-child(6)::before { background: #b3541e; }
+.telemetry-item:nth-child(7)::before { background: #a25c34; }
+
+.telemetry-label {
+  font-family: var(--font-antique-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #694b33;
+}
+
+.telemetry-value {
+  font-family: var(--font-mono);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #2b180d;
+}
+
+/* Panel de Controles y Deslizadores (Estilo Latón y Caoba) */
+.sim-controls-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  background: #fbf5ea;
+  border: 1px solid #d8c7ad;
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #3b2210;
+}
+
+.control-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: #dfd1bd;
+  outline: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.control-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #b88a38, #694318);
+  border: 1.5px solid #ffeed2;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(60, 30, 10, 0.4);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
+}
+
+.control-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 10px rgba(60, 30, 10, 0.55);
+}
+
+/* Botones de Preajustes Físicos */
+.sim-presets-bar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid #d8c7ad;
+}
+
+.sim-preset-label {
+  font-family: var(--font-antique-heading);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #694b34;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 4px;
+}
+
+.sim-preset-btn {
+  background: #fffdf9;
+  border: 1px solid #d4c2a5;
+  color: #4a2f1c;
+  font-family: var(--font-antique-heading);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(60, 30, 10, 0.05);
+}
+
+.sim-preset-btn:hover {
+  background: #f0e2cd;
+  color: #2b180d;
+  border-color: #b88a38;
+  transform: translateY(-1px);
+}
+
+/* Barra de Botones de Reproducción */
+.sim-playback-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.playback-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sim-play-btn {
+  background: linear-gradient(135deg, #7c2d12, #991b1b);
+  color: #ffeed2;
+  border: 1px solid #d4a64f;
+  padding: 8px 18px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-antique-heading);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(90, 25, 10, 0.35);
+}
+
+.sim-play-btn:hover {
+  background: linear-gradient(135deg, #991b1b, #b91c1c);
+  transform: translateY(-1px);
+  color: #ffffff;
+  border-color: #f7d58b;
+}
+
+.sim-btn-secondary {
+  background: #fffdf9;
+  color: #4a2f1c;
+  border: 1px solid #d4c2a5;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-antique-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sim-btn-secondary:hover {
+  background: #f0e2ce;
+  border-color: #8f6727;
+}
+
+.speed-selector-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #f0e2cd;
+  padding: 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid #d4c2a5;
+}
+
+.speed-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #694b34;
+  cursor: pointer;
+}
+
+.speed-btn.active {
+  background: #ffffff;
+  color: #2b180d;
+  box-shadow: 0 1px 3px rgba(60, 30, 10, 0.12);
+}
+
+.curve-toggle-pills {
+  display: flex;
+  gap: 6px;
+}
+
+.curve-pill {
+  font-family: var(--font-antique-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.curve-pill.pill-pos {
+  background: rgba(27, 73, 101, 0.12);
+  color: #1b4965;
+  border-color: rgba(27, 73, 101, 0.35);
+}
+
+.curve-pill.pill-pos.active {
+  background: #1b4965;
+  color: white;
+}
+
+.curve-pill.pill-vel {
+  background: rgba(45, 90, 63, 0.12);
+  color: #2d5a3f;
+  border-color: rgba(45, 90, 63, 0.35);
+}
+
+.curve-pill.pill-vel.active {
+  background: #2d5a3f;
+  color: white;
+}
+
+.curve-pill.pill-acc {
+  background: rgba(140, 37, 30, 0.12);
+  color: #8c251e;
+  border-color: rgba(140, 37, 30, 0.35);
+}
+
+.curve-pill.pill-acc.active {
+  background: #8c251e;
+  color: white;
+}
