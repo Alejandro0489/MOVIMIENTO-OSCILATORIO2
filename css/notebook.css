@@ -1336,6 +1336,644 @@ body {
 }
 
 /* ==========================================================================
+   COLECCIÓN DE EJERCICIOS PRÁCTICOS DE CÁTEDRA (M.A.S., RESORTES & PÉNDULO)
+   Estilo: Problemario Editorial en Pergamino Iluminado & Modo Paso a Paso
+   ========================================================================== */
+
+/* Barra de Herramientas y Navegación Rápida de Ejercicios */
+.exercises-toolbar-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: rgba(244, 233, 214, 0.92);
+  border: 1.5px solid #cbb698;
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(60, 30, 10, 0.06);
+}
+
+.exercises-quick-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.exercise-nav-pill {
+  background: rgba(255, 252, 245, 0.92);
+  border: 1px solid #c7af8e;
+  color: #4a2b13;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-antique-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.exercise-nav-pill:hover {
+  background: #eedbc2;
+  border-color: #8f6727;
+  color: #241308;
+  transform: translateY(-1px);
+}
+
+.btn-toggle-all-steps {
+  background: linear-gradient(135deg, #7c481e 0%, #4a280f 100%);
+  color: #ffeed2;
+  border: 1.5px solid #d4a64f;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-antique-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 3px 10px rgba(60, 30, 10, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-toggle-all-steps:hover {
+  background: linear-gradient(135deg, #8f5323 0%, #5d3415 100%);
+  border-color: #f7eedb;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(60, 30, 10, 0.35);
+}
+
+/* Contenedor General con Espaciado Generoso */
+.vintage-exercises-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* Espacio claro y generoso entre cada ejercicio */
+  margin-bottom: 32px;
+}
+
+/* Tarjeta Individual de Ejercicio */
+.vintage-exercise-card {
+  background: rgba(250, 243, 230, 0.94);
+  background-image: radial-gradient(circle at top left, rgba(212, 166, 79, 0.08) 0%, transparent 40%);
+  border: 1.5px solid #c9b494;
+  border-radius: var(--radius-lg);
+  padding: 28px 30px;
+  box-shadow: 0 5px 20px rgba(50, 25, 10, 0.08), inset 0 0 25px rgba(212, 166, 79, 0.05);
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.vintage-exercise-card:hover {
+  border-color: #b88a38;
+  box-shadow: 0 8px 24px rgba(50, 25, 10, 0.12), inset 0 0 25px rgba(212, 166, 79, 0.08);
+}
+
+.vintage-exercise-card::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border: 1px dashed rgba(180, 138, 60, 0.35);
+  border-radius: calc(var(--radius-lg) - 2px);
+  pointer-events: none;
+}
+
+/* Cabecera del Ejercicio */
+.vintage-exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 2px solid #d4c2a5;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.vintage-exercise-header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 70px;
+  height: 2px;
+  background: var(--antique-gold);
+}
+
+.vintage-exercise-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(143, 103, 39, 0.15);
+  border: 1.5px solid #b88a38;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-antique-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #4a280f;
+  box-shadow: 0 2px 6px rgba(60, 30, 10, 0.08);
+}
+
+.vintage-exercise-title {
+  font-family: var(--font-antique-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #241308;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.vintage-exercise-theme-tag {
+  font-family: var(--font-serif);
+  font-size: 0.88rem;
+  font-style: italic;
+  color: #744b26;
+  background: rgba(255, 250, 240, 0.7);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid #dfd1bd;
+}
+
+/* Enunciado del Ejercicio */
+.vintage-statement-box {
+  background: rgba(243, 232, 213, 0.88);
+  border: 1px solid #cebca2;
+  border-left: 5px solid var(--antique-brass);
+  padding: 18px 22px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: #241308;
+  margin-bottom: 22px;
+  box-shadow: inset 0 1px 4px rgba(60, 30, 10, 0.04);
+}
+
+.vintage-statement-box strong {
+  font-family: var(--font-antique-heading);
+  color: #4a270f;
+  letter-spacing: 0.03em;
+}
+
+/* Bloque de Datos */
+.vintage-data-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0 18px 0;
+}
+
+.vintage-data-chip {
+  background: rgba(27, 73, 101, 0.08);
+  border: 1px solid rgba(27, 73, 101, 0.32);
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: #1b4965;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vintage-data-chip strong {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #0f3246;
+}
+
+/* Secciones de Procedimiento Matemático */
+.vintage-procedure-section {
+  margin-bottom: 20px;
+}
+
+.vintage-procedure-section h4 {
+  font-family: var(--font-antique-heading);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #3b2210;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vintage-procedure-section p {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  color: #2b170c;
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+
+/* Tarjeta de Respuestas Estilo Sello de Códice */
+.vintage-answer-stamp {
+  background: rgba(247, 237, 218, 0.96);
+  border: 2px solid #8f6727;
+  border-radius: var(--radius-md);
+  padding: 16px 22px;
+  margin: 22px 0 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  box-shadow: 0 4px 14px rgba(60, 30, 10, 0.07), inset 0 0 12px rgba(212, 166, 79, 0.12);
+  position: relative;
+}
+
+.vintage-answer-stamp-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vintage-answer-stamp-seal {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c2d12, #991b1b);
+  border: 1.5px solid #d4a64f;
+  color: #ffeed2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.vintage-answer-stamp-title {
+  font-family: var(--font-antique-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #3d200d;
+}
+
+.vintage-answer-stamp-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.vintage-answer-pill {
+  background: rgba(179, 84, 30, 0.12);
+  border: 1.5px solid #b3541e;
+  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #7c2d12;
+  box-shadow: 0 2px 5px rgba(60, 30, 10, 0.06);
+}
+
+/* Botón Interactivo: Ver Explicación Paso a Paso */
+.step-toggle-wrapper {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-step-toggle {
+  background: linear-gradient(135deg, #3d2414 0%, #201108 100%);
+  color: #ffeed2;
+  border: 1.5px solid #b88a38;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-antique-heading);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(40, 20, 10, 0.25), inset 0 1px 1px rgba(255, 235, 190, 0.2);
+  transition: all 0.22s ease;
+}
+
+.btn-step-toggle:hover {
+  background: linear-gradient(135deg, #57331c 0%, #301a0d 100%);
+  border-color: #fce19b;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(60, 30, 10, 0.35), 0 0 10px rgba(212, 166, 79, 0.3);
+}
+
+.btn-step-toggle.active {
+  background: linear-gradient(135deg, #7c481e 0%, #4a280f 100%);
+  border-color: #d4a64f;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-step-toggle i.chevron-icon {
+  transition: transform 0.25s ease;
+}
+
+.btn-step-toggle.active i.chevron-icon {
+  transform: rotate(180deg);
+}
+
+/* Caja de Explicación Paso a Paso (Acordeón) */
+.step-explanation-box {
+  display: none;
+  background: rgba(246, 236, 219, 0.95);
+  border: 1.5px solid #c4ae8f;
+  border-left: 5px solid #8f6727;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 24px;
+  margin-top: 18px;
+  box-shadow: 0 4px 16px rgba(50, 25, 10, 0.08);
+  animation: stepFadeIn 0.3s ease forwards;
+}
+
+.step-explanation-box.active {
+  display: block;
+}
+
+@keyframes stepFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-explanation-title {
+  font-family: var(--font-antique-heading);
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: #3d2311;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px dashed rgba(180, 138, 60, 0.4);
+  padding-bottom: 10px;
+}
+
+.step-flow-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.step-flow-item {
+  background: rgba(255, 252, 245, 0.92);
+  border: 1px solid #d8c7ad;
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  box-shadow: 0 2px 6px rgba(60, 30, 10, 0.04);
+}
+
+.step-flow-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.step-number-tag {
+  background: #8f6727;
+  color: #faf4e8;
+  font-family: var(--font-antique-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+}
+
+.step-flow-title {
+  font-family: var(--font-antique-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2e180c;
+}
+
+.step-flow-body {
+  font-family: var(--font-serif);
+  font-size: 1.04rem;
+  color: #3b2414;
+  line-height: 1.65;
+}
+
+/* ==========================================================================
+   ESTILOS DEL LABORATORIO GRÁFICO INTERACTIVO DE EJERCICIOS
+   ========================================================================== */
+.vintage-lab-card {
+  background: rgba(248, 239, 224, 0.94);
+  border: 2px solid #b88a38;
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  box-shadow: 0 6px 24px rgba(50, 25, 10, 0.1), inset 0 0 20px rgba(212, 166, 79, 0.06);
+  margin: 32px 0;
+  position: relative;
+}
+
+.vintage-lab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.vintage-lab-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.vintage-lab-seal {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8f6727, #4a2f13);
+  border: 1.5px solid #d4a64f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffeed2;
+  box-shadow: 0 3px 10px rgba(60, 30, 10, 0.3);
+}
+
+.vintage-lab-title {
+  font-family: var(--font-antique-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #241308;
+  margin-bottom: 3px;
+}
+
+.vintage-lab-subtitle {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #634024;
+  margin: 0;
+}
+
+.vintage-lab-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vintage-lab-tab {
+  background: rgba(255, 250, 240, 0.9);
+  border: 1.5px solid #c9b494;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-antique-heading);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #4a2c13;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s ease;
+}
+
+.vintage-lab-tab:hover {
+  background: #eedbc2;
+  border-color: #8f6727;
+  color: #231206;
+}
+
+.vintage-lab-tab.active {
+  background: linear-gradient(135deg, #7c481e, #4a280f);
+  color: #ffeed2;
+  border-color: #d4a64f;
+  box-shadow: 0 3px 10px rgba(60, 30, 10, 0.25);
+}
+
+.vintage-lab-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid #c4ae8f;
+  overflow: hidden;
+  box-shadow: inset 0 2px 10px rgba(60, 30, 10, 0.08);
+}
+
+.vintage-lab-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.vintage-lab-watermark {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  font-family: var(--font-antique-heading);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: rgba(143, 103, 39, 0.38);
+  pointer-events: none;
+}
+
+.vintage-lab-telemetry {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.vintage-lab-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(180, 138, 60, 0.35);
+}
+
+.lab-controls-left, .lab-controls-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn-lab-action {
+  background: rgba(255, 252, 245, 0.95);
+  border: 1.5px solid #b88a38;
+  color: #4a280f;
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-antique-heading);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(60, 30, 10, 0.08);
+}
+
+.btn-lab-action:hover {
+  background: #eedbc2;
+  border-color: #8f6727;
+  transform: translateY(-1px);
+}
+
+.lab-speed-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lab-control-label {
+  font-family: var(--font-antique-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #613c1c;
+}
+
+.lab-speed-btn, .lab-submode-btn {
+  background: rgba(255, 250, 240, 0.9);
+  border: 1px solid #cbb698;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4a2b13;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.lab-speed-btn:hover, .lab-submode-btn:hover {
+  background: #f0e1cb;
+  border-color: #8f6727;
+}
+
+.lab-speed-btn.active, .lab-submode-btn.active {
+  background: #8f6727;
+  color: #fff2db;
+  border-color: #5c381c;
+}
+
+/* ==========================================================================
    Barra de Navegación Inferior (Cuero Oscuro, Latón y Números Romanos)
    ========================================================================== */
 .bottom-nav-bar {

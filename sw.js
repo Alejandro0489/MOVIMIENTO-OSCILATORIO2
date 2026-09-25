@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fisica3-mas-cache-v3';
+const CACHE_NAME = 'fisica3-mas-cache-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -6,6 +6,7 @@ const ASSETS_TO_CACHE = [
   './css/notebook.css',
   './css/geogebra.css',
   './css/simulation.css',
+  './js/vintage-exercises-lab.js',
   './js/geogebra-plane.js',
   './js/mas-simulation.js',
   './js/mindmap.js',

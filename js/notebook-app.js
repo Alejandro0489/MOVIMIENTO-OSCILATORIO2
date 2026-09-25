@@ -226,6 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let mindMapInstance = null;
   let geogebraKinematicsPlane = null;
   let masLabInstance = null;
+  let vintageExercisesLabInstance = null;
 
   function triggerPageSpecificComponents(pageIdx) {
     // Página 2: Mapa Mental
@@ -289,6 +290,63 @@ document.addEventListener('DOMContentLoaded', () => {
         masLabInstance.setActive(false);
       }
     }
+
+    // Página 10: Colección de Ejercicios Prácticos y Laboratorio Gráfico
+    if (pageIdx === 10) {
+      if (!vintageExercisesLabInstance && window.VintageExercisesLab) {
+        vintageExercisesLabInstance = new window.VintageExercisesLab('#vintage-exercises-lab');
+      } else if (vintageExercisesLabInstance && vintageExercisesLabInstance.setActive) {
+        vintageExercisesLabInstance.setActive(true);
+        setTimeout(() => {
+          vintageExercisesLabInstance.resize();
+          vintageExercisesLabInstance.render();
+        }, 50);
+      }
+    } else {
+      if (vintageExercisesLabInstance && vintageExercisesLabInstance.setActive) {
+        vintageExercisesLabInstance.setActive(false);
+      }
+    }
+  }
+
+  // Control de Explicaciones Paso a Paso en Ejercicios
+  document.querySelectorAll('.btn-step-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.dataset.target;
+      const box = document.getElementById(targetId);
+      if (box) {
+        const isCurrentlyActive = box.classList.contains('active');
+        box.classList.toggle('active', !isCurrentlyActive);
+        btn.classList.toggle('active', !isCurrentlyActive);
+        const spanText = btn.querySelector('span');
+        if (spanText) {
+          spanText.textContent = !isCurrentlyActive ? 'Ocultar Explicación' : 'Ver Explicación Paso a Paso';
+        }
+      }
+    });
+  });
+
+  // Botón Global: Desplegar/Ocultar todos los pasos a paso
+  const btnToggleAll = document.getElementById('btn-toggle-all-steps');
+  if (btnToggleAll) {
+    let allExpanded = false;
+    btnToggleAll.addEventListener('click', () => {
+      allExpanded = !allExpanded;
+      document.querySelectorAll('.step-explanation-box').forEach(box => {
+        box.classList.toggle('active', allExpanded);
+      });
+      document.querySelectorAll('.btn-step-toggle').forEach(btn => {
+        btn.classList.toggle('active', allExpanded);
+        const spanText = btn.querySelector('span');
+        if (spanText) {
+          spanText.textContent = allExpanded ? 'Ocultar Explicación' : 'Ver Explicación Paso a Paso';
+        }
+      });
+      const textSpan = document.getElementById('text-toggle-all-steps');
+      if (textSpan) {
+        textSpan.textContent = allExpanded ? 'Ocultar todos los Pasos a Paso' : 'Desplegar todos los Pasos a Paso';
+      }
+    });
   }
 
   // Inicializar iconos de Lucide

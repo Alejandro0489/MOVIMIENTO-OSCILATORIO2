@@ -55,7 +55,9 @@ La aplicación ha sido optimizada y verificada para funcionar sin fricción en c
    - 🟠 **Fase 4**: Sustitución, despeje y cálculo con unidades
    - 🟢 **Fase 5**: Validación dimensional y conclusiones físicas
 10. **Página 9 — Taller de Problemas Resueltos II (Dinámica)**: Determinación de masa, rigidez del muelle y condiciones iniciales con protocolo estricto.
-11. **Página 10 — Glosario Científico con Buscador en Vivo**: Filtro instantáneo de términos clave en física oscilatoria.
+11. **Página 10 — Colección de Ejercicios Prácticos Resueltos**: Cinco problemas fundamentales (Ejercicios 1, 2, 4, 10 y 17) con explicaciones interactivas paso a paso, espaciado editorial generoso y Laboratorio Gráfico Interactivo de resortes, péndulo y pistón.
+12. **Página 11 — Glosario Científico con Buscador en Vivo**: Filtro instantáneo de términos clave en física oscilatoria.
+13. **Página 12 — Referencias Bibliográficas (APA 7) & Colofón**: Fuentes primarias universitarias y créditos de autoría.
 
 ---
 
